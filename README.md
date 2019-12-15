@@ -39,3 +39,30 @@ e.g2:
 ```
 
 contracts are checked dynamically every time a function is called
+
+## Chups Features
+* Chups core (the haskell language form to turn into)
+```
+data Prog = Prog [Binding] Expr     -- ^ A whole Chups program
+
+data Binding = Binding String Expr  -- ^ A name binding
+
+data Expr
+    -- The "core" Chups language
+    = IntLiteral Integer      -- ^ Integer literal
+    | BoolLiteral Bool        -- ^ Boolean literal
+    | Identifier String       -- ^ Identifier
+    | Lambda [String] Expr    -- ^ Function value
+    | Call Expr [Expr]        -- ^ Function call
+    | If Expr Expr Expr       -- ^ if expressions
+
+    -- Additional control flow expressions
+    | Shift String Expr       -- ^ `shift` expression in Racket
+    | Reset Expr              -- ^ `reset` expression in Racket
+    | Error String            -- ^ an error value (with a given message)
+    | Raise Expr              -- ^ "raise" an error
+    | Try Expr String Expr    -- ^ try-except expression
+```
+### Implemented Features:
+* turn a normal state to CPS (continuation passing style)
+* Shift, error, reset, try catch statement
